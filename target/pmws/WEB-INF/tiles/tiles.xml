@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<!DOCTYPE
+ tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd"
+	>
+<tiles-definitions>
+	<definition name="admin.def" template="/views/layouts/admin_layout.jsp">
+		<put-attribute name="title" value="Welcome to PMWS" />
+		<put-attribute name="header" value="/views/l_includes/a_header.jsp" />
+		<put-attribute name="menu" value="/views/l_includes/a_menu.jsp" />
+		<put-attribute name="subheader" value="" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="subfooter" value="" />
+		<put-attribute name="footer" value="/views/l_includes/a_footer.jsp" />
+	</definition>
+
+	<definition name="page.def" template="/views/layouts/page.jsp">
+		<put-attribute name="page" value="" />
+	</definition>
+
+	<definition name="adminlogin" extends="page.def">
+		<put-attribute name="page" value="/views/login.jsp" />
+	</definition>
+	<definition name="admin" extends="admin.def">
+	</definition>
+
+	<definition name="admin-sec-login" extends="page.def">
+		<put-attribute name="page" value="/views/login.jsp" />
+	</definition>
+
+	<definition name="users" extends="admin.def">
+		<put-attribute name="body" value="/views/admin/user.jsp" />
+	</definition>
+	<definition name="user_action" extends="admin.def">
+		<put-attribute name="body" value="/views/admin/add_user.jsp" />
+	</definition>
+	<definition name="user_listing" extends="admin.def">
+		<put-attribute name="body" value="/views/admin/user.jsp" />
+	</definition>
+
+	<definition name="products" extends="admin.def">
+		<put-attribute name="body" value="/views/admin/products.jsp" />
+	</definition>
+	<definition name="product_action" extends="admin.def">
+		<put-attribute name="body" value="/views/admin/add_product.jsp" />
+	</definition>
+	<definition name="product_listing" extends="admin.def">
+		<put-attribute name="body" value="/views/admin/products.jsp" />
+	</definition>
+
+	<definition name="promotions" extends="admin.def">
+		<put-attribute name="body" value="/views/admin/promotions.jsp" />
+	</definition>
+	<definition name="promotion_action" extends="admin.def">
+		<put-attribute name="body" value="/views/admin/add_promotion.jsp" />
+	</definition>
+	<definition name="promotion_listing" extends="admin.def">
+		<put-attribute name="body" value="/views/admin/promotions.jsp" />
+	</definition>
+
+	<definition name="search_promotions" extends="admin.def">
+		<put-attribute name="body" value="/views/admin/search_promotions.jsp" />
+	</definition>
+</tiles-definitions>

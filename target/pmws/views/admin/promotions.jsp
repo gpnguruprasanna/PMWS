@@ -4,7 +4,8 @@
 			<div class="portlet-title">
 				<div class="caption"><h3>Promotions</h3></div>
 		<c:set var="userIsReviewer" value="${viewUtil.isCurrentUserReviewer(currentUserId) }"></c:set>
-			<c:if test="${userIsReviewer==false}">
+		<c:set var="userIsReviewerandsubmitter" value="${viewUtil.isCurrentUserReviewerAndSubmitter(currentUserId) }"></c:set>
+			<c:if test="${userIsReviewer==false || userIsReviewerandsubmitter==true}">
 			<div class="tools">
 				<div class="">
 					<a class=" btn-xs btn purple pull-right"
@@ -78,10 +79,14 @@
 								<div class="dt-action-buttons center">
 									<a class="" type="button"
 										href="${pageContext.request.contextPath}/admin/promotions?action=edit&promotionId=${promotion.promotionId}"><i
-										class="fa fa-edit" title="edit user"></i> </a> <a class=""
+										class="fa fa-edit" title="edit user"></i> </a> 
+										
+										<c:if test="${userIsReviewer==false || userIsReviewerandsubmitter==true}">
+										<a class=""
 										type="button"
 										href="${pageContext.request.contextPath}/admin/promotions?action=remove&promotionId=${promotion.promotionId}"><i
 										class="fa fa-times" title="edit user"></i> </a>
+										</c:if>
 								</div>
 							</datatables:column>
 						</datatables:table>

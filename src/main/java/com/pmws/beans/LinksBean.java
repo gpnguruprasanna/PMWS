@@ -1,4 +1,8 @@
 package com.pmws.beans;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *@author guruprasanna n
  */

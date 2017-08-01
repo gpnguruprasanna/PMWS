@@ -8,7 +8,6 @@
 <meta content="" name="description" />
 <meta content="" name="author" />
 <!-- BEGIN GLOBAL MANDATORY STYLES -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="${pageContext.request.contextPath}/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
 <%--  <link href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
  --%> 
@@ -42,7 +41,7 @@
 				<div class="page-content-body">
 					<tiles:insertAttribute name="body" />
 				</div>
-				<div class="sub-page-content-body"></div>
+				<!-- <div class="sub-page-content-body"></div> -->
 			</div>
 		</div>
 	</div>
@@ -64,15 +63,12 @@
  <script>
   
 	  $(document).ready(function() {
-		 
-/* 		  $('#user_form_id').validationEngine({promptPosition : "topRight",scroll : false,usePrefix : 's2id_'});
- */			
-			
+
 			  $(".fromDate").datetimepicker({
 		            autoclose: true,
 		            todayBtn: true,
-		            format: "dd MM yyyy",
-		            minuteStep:0,
+		            minView:2,
+	                format: "dd MM yyyy",
 		            pickerPosition: "bottom-left"
 		        });
 	  });

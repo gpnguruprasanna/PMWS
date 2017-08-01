@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.pmws.dao.ProductDao;
-
+/**
+ *@author guruprasanna n
+ */
 @Service("productService")
 public class ProductService<ProductBean> implements GenericService<ProductBean> {
 

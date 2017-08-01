@@ -2,8 +2,8 @@ F:\workspace\hibernate\pmws\src\main\java\com\pmws\dao\HibernateDao.java
 F:\workspace\hibernate\pmws\src\main\java\com\pmws\util\ViewUtil.java
 F:\workspace\hibernate\pmws\src\main\java\com\pmws\dao\impl\UserDaoImpl.java
 F:\workspace\hibernate\pmws\src\main\java\com\pmws\controller\AppController.java
-F:\workspace\hibernate\pmws\src\main\java\com\pmws\beans\ProductBean.java
 F:\workspace\hibernate\pmws\src\main\java\com\pmws\context\TileExposeView.java
+F:\workspace\hibernate\pmws\src\main\java\com\pmws\beans\ProductBean.java
 F:\workspace\hibernate\pmws\src\main\java\com\pmws\dao\impl\PromotionDaoImpl.java
 F:\workspace\hibernate\pmws\src\main\java\com\pmws\dao\impl\ProductDaoImpl.java
 F:\workspace\hibernate\pmws\src\main\java\com\pmws\beans\LinksBean.java
@@ -15,11 +15,10 @@ F:\workspace\hibernate\pmws\src\main\java\com\pmws\controller\LoginController.ja
 F:\workspace\hibernate\pmws\src\main\java\com\pmws\dao\impl\LoginDaoImpl.java
 F:\workspace\hibernate\pmws\src\main\java\com\pmws\service\UserService.java
 F:\workspace\hibernate\pmws\src\main\java\com\pmws\dao\DaoActions.java
-F:\workspace\hibernate\pmws\src\main\java\com\pmws\dao\UserDao.java
 F:\workspace\hibernate\pmws\src\main\java\com\pmws\beans\UserBean.java
+F:\workspace\hibernate\pmws\src\main\java\com\pmws\dao\UserDao.java
 F:\workspace\hibernate\pmws\src\main\java\com\pmws\dao\LoginDao.java
 F:\workspace\hibernate\pmws\src\main\java\com\pmws\entity\Products.java
-F:\workspace\hibernate\pmws\src\main\java\com\pmws\util\SessionProvider.java
 F:\workspace\hibernate\pmws\src\main\java\com\pmws\beans\PromotionBean.java
 F:\workspace\hibernate\pmws\src\main\java\com\pmws\context\TileExpose.java
 F:\workspace\hibernate\pmws\src\main\java\com\pmws\beans\LoginBean.java

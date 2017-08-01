@@ -17,6 +17,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.pmws.beans.LinksBean;
 
+/**
+ *@author guruprasanna n
+ *
+ *this class provide utility methods 
+ */
 @Service("viewUtil")
 @Transactional
 @Async
@@ -24,10 +29,16 @@ public class ViewUtil {
 	@Resource(name="sessionFactory")
 	protected  SessionFactory sessionFactory;
 
+	/**
+	 * This method fetch available links based on role based
+	 * @param :String
+	 * @return :List<LinksBean>
+	 *
+	 */
 	public List<LinksBean> getLinks(String userId){
 		List<LinksBean> links=new ArrayList<LinksBean>();
 		List<String>	roleIds=getCurrentUserRoles(userId);
-		List<Object []> listOfLinks=sessionFactory.getCurrentSession().createQuery("select a.linkId ,a.linkName,a.url from AppLinks a").list();
+		List<Object []> listOfLinks=sessionFactory.getCurrentSession().createQuery("select a.linkId ,a.linkName,a.url from AppLinks a where status='T' ").list();
 		if(listOfLinks!=null && listOfLinks.size()>0){
 			for(Object obj[]:listOfLinks){
 				LinksBean linksBean=new LinksBean();
@@ -40,11 +51,20 @@ public class ViewUtil {
 				if((roleIds.contains("S") || roleIds.contains("R")) && linksBean.getLinkName().equals("promotions")){
 					links.add(linksBean);
 				}
+				if((roleIds.contains("S") || roleIds.contains("R")) && linksBean.getLinkName().equals("Promotion_Search")){
+					links.add(linksBean);
+				}
 			}
 		}
 		return links;
 	}
 
+	/**
+	 * This method return list of quantity provided in product page
+	 * @param :String
+	 * @return :List<LinksBean>
+	 *
+	 */
 	public List<Integer> getQuantity(){
 		List<Integer> quantity=new ArrayList<Integer>();
 		for(int i=0;i<50;i++){
@@ -53,6 +73,12 @@ public class ViewUtil {
 		return quantity;
 	}
 
+	/**
+	 * This method logged user roles
+	 * @param :String
+	 * @return :List<String>
+	 *
+	 */
 	public List<String> getCurrentUserRoles(String userId){
 		List<String> listIds=new ArrayList<String>();	
 		List<Object []> listOfRoles=sessionFactory.getCurrentSession().createQuery("select userId,roles from Users where userId="+Long.parseLong(userId)+" ").list();
@@ -72,6 +98,13 @@ public class ViewUtil {
 		}
 		return listIds;
 	}
+	
+	/**
+	 * This method provide status for each record created in db
+	 * @param :String
+	 * @return :Map<String ,String>
+	 *
+	 */
 	public Map<String ,String> getStatuses(){
 		Map<String,String> status=new LinkedHashMap<String, String>();
 		status.put("T", "Active");
@@ -79,6 +112,11 @@ public class ViewUtil {
 		return status;
 	}
 
+	/**
+	 * This method provide product category
+	 * @return :Map<String ,String>
+	 *
+	 */
 	public Map<String ,String> getProductCategory(){
 		Map<String,String> status=new LinkedHashMap<String, String>();
 		status.put("L", "Laptop");
@@ -86,14 +124,25 @@ public class ViewUtil {
 		return status;
 	}
 
+	/**
+	 * This method provide Review status
+	 * @return :Map<String ,String>
+	 *
+	 */
 	public Map<String ,String> getReviewStatuses(){
 		Map<String,String> status=new LinkedHashMap<String, String>();
-		status.put("NR", "Not Reviewed");
+		status.put("N", "Not Reviewed");
 		status.put("A", "Approved");
 		status.put("R", "Rejected");
 		return status;
 	}
 
+	/**
+	 * This method fetch list of products 
+	 * @param :String
+	 * @return :Map<String ,String>
+	 *
+	 */
 	public Map<Long ,String> getProducts(){
 		Map<Long,String> products=new LinkedHashMap<Long, String>();
 		products.put(0l, "Select Product");
@@ -108,6 +157,12 @@ public class ViewUtil {
 		return products;
 	}
 
+	/**
+	 * This method product info based on id
+	 * @param :String
+	 * @return :String
+	 *
+	 */
 	public String getProductBasedOnId(String id){
 		String productDetail="";
 		if(!id.isEmpty()){
@@ -121,6 +176,12 @@ public class ViewUtil {
 		return productDetail;
 	}
 
+	/**
+	 * This method provide user roles
+	 * @param :String
+	 * @return :Map<String ,String>
+	 *
+	 */
 	public Map<String ,String> getRoles(){
 		Map<String,String> status=new LinkedHashMap<String, String>();
 		status.put("A", "Admin");
@@ -134,6 +195,12 @@ public class ViewUtil {
 		return dt1.format(new Date());
 	}
 
+	/**
+	 * This method provide String date to Date
+	 * @param :String
+	 * @return :Date
+	 *
+	 */
 	public Date getStringToDate(String date){
 		SimpleDateFormat format=new SimpleDateFormat("dd MMMM yyyy");
 		Date dateformat=null;
@@ -144,6 +211,13 @@ public class ViewUtil {
 		}
 		return dateformat;
 	}
+	
+	/**
+	 * This method provide Date to string format date
+	 * @param :String
+	 * @return :Map<String ,String>
+	 *
+	 */
 	public String getDateToString(Date date){
 		SimpleDateFormat format=new SimpleDateFormat("dd MMMM yyyy");
 		String stringformat=null;
@@ -151,15 +225,35 @@ public class ViewUtil {
 		return stringformat;
 	}
 
+	/**
+	 * This method role name based on id
+	 * @param :String
+	 * @return :Map<String ,String>
+	 *
+	 */
 	public String getRole(String id){
 		return getRoles().get(id);
 	}
 
+	/**
+	 * This method to check logged user is reviewer or not
+	 * @param :String
+	 * @return :Map<String ,String>
+	 *
+	 */
 	public boolean isCurrentUserReviewer(String userId){
 		List<String> listOfRoles=getCurrentUserRoles(userId);
 		return listOfRoles.contains("R");
 	}
 
-
-
+	/**
+	 * This method to check logged user is reviewer and submitter
+	 * @param :String
+	 * @return :Map<String ,String>
+	 *
+	 */
+	public boolean isCurrentUserReviewerAndSubmitter(String userId){
+		List<String> listOfRoles=getCurrentUserRoles(userId);
+		return (listOfRoles.contains("R") && listOfRoles.contains("S"));
+	}
 }

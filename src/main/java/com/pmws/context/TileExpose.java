@@ -1,6 +1,7 @@
 package com.pmws.context;
 /**
  * @author guruprasanna n
+ *  This class is used for all expose java beans to jsp 
  */
 import org.springframework.web.servlet.view.AbstractUrlBasedView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;

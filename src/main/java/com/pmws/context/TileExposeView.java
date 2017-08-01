@@ -12,6 +12,7 @@ import org.springframework.web.context.support.ContextExposingHttpServletRequest
 import org.springframework.web.servlet.view.tiles3.TilesView;
 /**
  *@author guruprasanna n
+ *This class is used for all expose java beans to jsp 
  */
 public class TileExposeView extends TilesView{
 

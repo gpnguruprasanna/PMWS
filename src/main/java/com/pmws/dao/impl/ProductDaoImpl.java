@@ -1,5 +1,8 @@
 package com.pmws.dao.impl;
-
+/**
+ *@author guruprasanna n
+ *this class perform curd operation for Product entity
+ */
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +14,7 @@ import com.pmws.dao.ProductDao;
 import com.pmws.entity.Products;
 
 @Repository("productDao")
-public class ProductDaoImpl extends HibernateDao<Products, Integer> implements ProductDao<ProductBean> {
+public class ProductDaoImpl extends HibernateDao implements ProductDao<ProductBean> {
 
 	public ProductBean add(ProductBean obj) {
 		try{
@@ -36,7 +39,6 @@ public class ProductDaoImpl extends HibernateDao<Products, Integer> implements P
 
 	public ProductBean remove(ProductBean obj) {
 		try{
-			System.out.println("kkkkkkkkkkkkkkcccccc"+"  "+obj.getProductId());
 			currentSession().createQuery("delete from Products a where a.productId='"+obj.getProductId()+"'").executeUpdate();
 			obj.setResponseMsg(obj.getProductName()+" product has been removed succussully.");
 			obj.setResponseStatus("success");
@@ -50,10 +52,8 @@ public class ProductDaoImpl extends HibernateDao<Products, Integer> implements P
 
 	public ProductBean get(ProductBean obj) {
 		try{
-			System.out.println("bvvvvvvvvvv"+"  "+obj.getProductId());
 			List<Object []> listOfProducts=currentSession().createQuery("select productId,productName,price,status,createdDate,category,quantity from Products where productId="+obj.getProductId()).list();
 			if(listOfProducts!=null && listOfProducts.size()>0){
-				System.out.println("bvvvvvvvvvv"+"  "+listOfProducts.size());
 				Object [] product=listOfProducts.get(0);
 				obj.setProductId((Long) product[0]);
 				obj.setProductName((String) product[1]);
@@ -67,7 +67,6 @@ public class ProductDaoImpl extends HibernateDao<Products, Integer> implements P
 			obj.setResponseStatus("error");
 			obj.setResponseMsg("Internal error while fetching data");
 		}
-		System.out.println("oooooooo"+"  "+obj.getAction());
 		return obj;
 	}
 

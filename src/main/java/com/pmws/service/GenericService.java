@@ -1,5 +1,7 @@
 package com.pmws.service;
-
+/**
+ *@author guruprasanna n
+ */
 public interface GenericService<T> {
 	public T add(Object obj);
 	public T update(Object obj);

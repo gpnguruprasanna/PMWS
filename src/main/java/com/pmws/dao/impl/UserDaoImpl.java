@@ -1,5 +1,8 @@
 package com.pmws.dao.impl;
-
+/**
+ *@author guruprasanna n
+ *this class perform curd operation for User entity
+ */
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -10,7 +13,7 @@ import com.pmws.dao.UserDao;
 import com.pmws.entity.Users;
 
 @Repository("userDao")
-public class UserDaoImpl extends HibernateDao<Users, Integer> implements UserDao<UserBean> {
+public class UserDaoImpl extends HibernateDao implements UserDao<UserBean> {
 
 	public UserBean add(UserBean obj) {
 		try{

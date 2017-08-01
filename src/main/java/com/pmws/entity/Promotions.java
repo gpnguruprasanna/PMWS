@@ -30,7 +30,7 @@ public class Promotions {
 		this.status=status;
 	}
 
-public	Promotions(){
+	public	Promotions(){
 
 	}
 	@Id
@@ -95,6 +95,6 @@ public	Promotions(){
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
-	
+
+
 }

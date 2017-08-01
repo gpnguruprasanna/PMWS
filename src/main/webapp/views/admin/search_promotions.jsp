@@ -1,9 +1,7 @@
 <%@ include file="../l_includes/taglibs.jsp"%>
-<br>
-<div id="subpage_id">
-<h3>Search Promotion</h3>
 	 <div class="row">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+<h3>Search Promotion</h3>
 				<div class="portlet-body form">
 				 <c:choose>
 					<c:when test="${fn:length(promotion_bean.listOfErrorDesc) gt 0}">
@@ -28,7 +26,7 @@
 							</c:if>
 						</c:otherwise>
 					</c:choose>
-					<form:form id="promotion_form_id" modelAttribute="promotion_bean" method="POST"  action="${pageContext.request.contextPath}/admin/fetchsearch&action=search" >	
+					<form:form id="promotion_form_id" modelAttribute="promotion_bean" method="POST"  action="${pageContext.request.contextPath}/admin/fetchsearch?action=search" >	
 						
 						<div class="form-body">
 							<div class="row">
@@ -92,7 +90,10 @@
 						</div>
 					</form:form> 
 					
-					<br>
+					<br><br><div></div>
+					<c:set var="userIsReviewer" value="${viewUtil.isCurrentUserReviewer(currentUserId) }"></c:set>
+					<c:set var="userIsReviewerandsubmitter" value="${viewUtil.isCurrentUserReviewerAndSubmitter(currentUserId) }"></c:set>
+		 
 					<c:if test="${promotion_bean.action eq 'search_result'}">
 				<c:choose>
 					<c:when test="${promotion_bean_result.responseStatus !='error' }">
@@ -146,10 +147,13 @@
 								<div class="dt-action-buttons center">
 									<a class="" type="button"
 										href="${pageContext.request.contextPath}/admin/promotions?action=edit&promotionId=${promotion.promotionId}"><i
-										class="fa fa-edit" title="edit user"></i> </a> <a class=""
+										class="fa fa-edit" title="edit user"></i> </a>
+										<c:if test="${userIsReviewer==false || userIsReviewerandsubmitter==true}">
+										 <a class=""
 										type="button"
 										href="${pageContext.request.contextPath}/admin/promotions?action=remove&promotionId=${promotion.promotionId}"><i
 										class="fa fa-times" title="edit user"></i> </a>
+										</c:if>
 								</div>
 							</datatables:column>
 						</datatables:table>
@@ -160,7 +164,3 @@
 			</div>
 		</div>
 	</div>
-</div> 
-<script type="text/javascript">
-	$('#promotion_form_id').validationEngine({promptPosition : "topRight",scroll : false,usePrefix : 's2id_'});
-</script>

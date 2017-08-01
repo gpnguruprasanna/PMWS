@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 import com.pmws.beans.LoginBean;
 import com.pmws.dao.LoginDao;
 
+/**
+ *@author guruprasanna n
+ */
 @Service("loginService")
 public class LoginService  {
 	@Autowired

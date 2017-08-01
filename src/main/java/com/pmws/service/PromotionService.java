@@ -3,8 +3,10 @@ package com.pmws.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-
 import com.pmws.dao.PromotionDao;
+/**
+ *@author guruprasanna n
+ */
 @Service("promotionService")
 public class PromotionService<PromotionBean> implements GenericService<PromotionBean>{
 	

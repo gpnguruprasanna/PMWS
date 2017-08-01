@@ -36,12 +36,22 @@
 						<c:set var="submitBtn" value="Update" />
 					</c:if>
 					<c:set var="userIsReviewer" value="${viewUtil.isCurrentUserReviewer(currentUserId) }"></c:set>
+					<c:set var="userIsReviewerandsubmitter" value="${viewUtil.isCurrentUserReviewerAndSubmitter(currentUserId) }"></c:set>
 					<c:set var="postUrl" value="${pageContext.request.contextPath}/admin/promotions-save"></c:set>
-					<c:if test="${userIsReviewer}">
-					<c:set var="postUrl" value="${pageContext.request.contextPath}/admin/promotions-save?action=update"></c:set>
-					</c:if>
-					<c:out value="${postUrl}"></c:out>
-					<form:form id="promotion_form_id" modelAttribute="promotion_bean" method="POST"  action="${postUrl}" >	
+
+
+				<c:if test="${userIsReviewer}">
+					<c:set var="postUrl" 	value="${pageContext.request.contextPath}/admin/promotions-save?action=update"></c:set>
+					<c:set var="disable" value="${userIsReviewer}"></c:set>
+				</c:if>
+
+				<c:if test="${userIsReviewerandsubmitter}">
+					<c:set var="postUrl" value="${pageContext.request.contextPath}/admin/promotions-save"></c:set>
+					<c:set var="disable" value="false"></c:set>
+					<c:set var="sr" value="true"></c:set>
+				</c:if>
+				
+				<form:form id="promotion_form_id" modelAttribute="promotion_bean" method="POST"  action="${postUrl}" >	
 						
 						<div class="form-body">
 							<div class="row">
@@ -49,23 +59,23 @@
 								<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 									<div class="form-group mandatory">
 										<label class="control-label">Select Product for Promotion</label>
-										<form:select path="productId" disabled="${userIsReviewer}"	class="validate[required] form-control"	items="${viewUtil.getProducts()}" ></form:select>
+										<form:select path="productId" disabled="${disable}"	class="validate[required] form-control"	items="${viewUtil.getProducts()}" ></form:select>
 									</div>
 								</div>
 
 								<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 									<div class="form-group mandatory">
 										<label class="control-label"> Discount</label>
-										<form:input path="dicount" disabled="${userIsReviewer}" class="validate[required] form-control"  />
+										<form:input path="dicount" disabled="${disable}" class="validate[required] form-control"  />
 									</div>
 								</div>
 								
 							<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 								<div class="form-group mandatory">
 									<label class="control-label">Start Date</label>
-									<div class="input-group date fromDate" disabled="${userIsReviewer}"
+									<div class="input-group date fromDate" disabled="${disable}"
 										data-date-startdate="${viewUtil.getCurrentViewDate()}">
-										<form:input path="startDate" id="start_date" disabled="${userIsReviewer}" 
+										<form:input path="startDate" id="start_date" disabled="${disable}" 
 											class="validate[required] form-control fdate" size="16" />
 										<span class="input-group-btn">
 											<button type="button" class="btn default date-set">
@@ -81,7 +91,7 @@
 									<label class="control-label">End Date</label>
 									<div class="input-group date fromDate"
 										data-date-startdate="${viewUtil.getCurrentViewDate()}">
-										<form:input path="endDate" id="start_date" disabled="${userIsReviewer}"
+										<form:input path="endDate" id="start_date" disabled="${disable}"
 											class="validate[required] form-control fdate" size="16" />
 										<span class="input-group-btn">
 											<button type="button" class="btn default date-set">
@@ -96,11 +106,11 @@
 								<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 									<div class="form-group mandatory">
 										<label class="control-label">status</label>
-										<form:select path="status" disabled="${userIsReviewer}" 	class="validate[required] form-control"	items="${viewUtil.getStatuses()}" ></form:select>
+										<form:select path="status" disabled="${disable}" 	class="validate[required] form-control"	items="${viewUtil.getStatuses()}" ></form:select>
 									</div>
 								</div>
 								
-								<c:if test="${userIsReviewer}">
+								<c:if test="${disable || sr}">
 								<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 									<div class="form-group mandatory">
 										<label class="control-label">Review Status</label>
@@ -112,7 +122,7 @@
 							</div>
 						</div>
 						<form:hidden path="promotionId" />
-						<c:if test="${!userIsReviewer}">
+						<c:if test="${!disable}">
 						<form:hidden path="action" />
 						</c:if>
 

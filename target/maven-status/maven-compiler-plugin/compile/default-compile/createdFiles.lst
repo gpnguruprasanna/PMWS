@@ -15,7 +15,6 @@ com\pmws\context\TileExposeView.class
 com\pmws\entity\Users.class
 com\pmws\service\PromotionService.class
 com\pmws\service\UserService.class
-com\pmws\util\SessionProvider.class
 com\pmws\dao\ProductDao.class
 com\pmws\dao\impl\UserDaoImpl.class
 com\pmws\entity\AppLinks.class

@@ -1,5 +1,8 @@
 package com.pmws.dao.impl;
-
+/**
+ *@author guruprasanna n
+ *this class perform curd operation for Promotion entity
+ */
 import java.util.Date;
 import java.util.List;
 
@@ -12,8 +15,9 @@ import com.pmws.dao.PromotionDao;
 import com.pmws.entity.Promotions;
 import com.pmws.util.ViewUtil;
 
+
 @Repository("promotionDao")
-public class PromotionDaoImpl extends HibernateDao<Promotions, Integer> implements PromotionDao<PromotionBean>{
+public class PromotionDaoImpl extends HibernateDao implements PromotionDao<PromotionBean>{
 	@Autowired
 	ViewUtil viewUtil;
 	public PromotionBean add(PromotionBean obj) {
@@ -30,12 +34,18 @@ public class PromotionDaoImpl extends HibernateDao<Promotions, Integer> implemen
 				promotions.setEndDate(endDate);
 			}
 			promotions.setStatus(obj.getStatus());
-			promotions.setReviewStatus("NR");
+			if(obj.getReviewStatus()==null){
+				promotions.setReviewStatus("N");
+			}else{
+				promotions.setReviewStatus(obj.getReviewStatus());
+			}
+
 			currentSession().save(promotions);
 			obj.setPromotionId(promotions.getPromotionId());
 			obj.setResponseStatus("success");
 			obj.setResponseMsg("Promotion  added succesfully");
 		}catch(Exception e){
+			e.printStackTrace();
 			obj.setErrorDesc("Error Occured while Saving new promotion in to Database");
 			obj.setResponseStatus("error");
 			obj.setResponseMsg("Server is not responding... please wait.... ");
@@ -46,9 +56,10 @@ public class PromotionDaoImpl extends HibernateDao<Promotions, Integer> implemen
 	public PromotionBean remove(PromotionBean obj) {
 		try{
 			currentSession().createQuery("delete from Promotions a where a.promotionId='"+obj.getPromotionId()+"'").executeUpdate();
-			obj.setResponseMsg(obj.getPromotionId()+" Promotions has been removed succussully.");
+			obj.setResponseMsg(" Promotions has been removed succussully.");
 			obj.setResponseStatus("success");
 		}catch(Exception e){
+			e.printStackTrace();
 			obj.setErrorDesc("Error Occured while Saving new product in to Database");
 			obj.setResponseStatus("error");
 			obj.setResponseMsg("Server is not responding... please wait.... ");
@@ -76,6 +87,7 @@ public class PromotionDaoImpl extends HibernateDao<Promotions, Integer> implemen
 				obj.setReviewStatus((String) promotion[6]);
 			}
 		}catch(Exception e){
+			e.printStackTrace();
 			obj.setResponseStatus("error");
 			obj.setResponseMsg("Internal error while fetching data");
 		}
@@ -128,12 +140,17 @@ public class PromotionDaoImpl extends HibernateDao<Promotions, Integer> implemen
 				promotions.setEndDate(endDate);
 			}
 			promotions.setStatus(obj.getStatus());
-			promotions.setReviewStatus("NR");
+			if(obj.getReviewStatus()==null){
+				promotions.setReviewStatus("N");
+			}else{
+				promotions.setReviewStatus(obj.getReviewStatus());
+			}
 			currentSession().update(promotions);
 			obj.setPromotionId(promotions.getPromotionId());
 			obj.setResponseStatus("success");
 			obj.setResponseMsg("Promotion  updated succesfully");
 		}catch(Exception e){
+			e.printStackTrace();
 			obj.setErrorDesc("Error Occured while updating new promotion in to Database");
 			obj.setResponseStatus("error");
 			obj.setResponseMsg("Server is not responding... please wait.... ");
@@ -148,32 +165,44 @@ public class PromotionDaoImpl extends HibernateDao<Promotions, Integer> implemen
 			sb.append("select promotionId,productId,startDate,endDate,discount,status,reviewStatus from Promotions");
 			if(obj.getProductId()>0){
 				istrue=true;
-				sb.append(" where productId="+obj.getProductId()+" ");
+				sb.append(" where productId='"+obj.getProductId()+"' ");
 			}
 			if(obj.getListOfReviewStatus()!=null){
-				String s[]=  (String[]) obj.getListOfReviewStatus().toArray();
-				if(istrue){
-					sb.append(" and reviewStatus in ("+s+") ");
+				String ss=obj.getListOfReviewStatus().toString();
+				String sr=ss.substring(1,ss.length()-1);
+
+				String rs="'";
+				if(sr.length()>0){
+					String[] c=sr.split(",");
+					for(int i=0;i<c.length;i++){
+						rs+=c[i].trim()+"'".trim()+",".trim()+"'".trim();
+					}
+					rs=rs.substring(0, rs.length()-2);
 				}else{
-					sb.append(" where reviewStatus in ("+s+") ");
+					rs+=sr+"'";
+				}
+				if(istrue){
+					sb.append(" and reviewStatus in ("+rs+") ");
+				}else{
+					sb.append(" where reviewStatus in ("+rs+") ");
 					istrue=true;
 				}
 			}
 			if(!obj.getStartDate().isEmpty()){
 				Date date=viewUtil.getStringToDate(obj.getStartDate());
 				if(istrue){
-					sb.append(" and startDate >="+date+"");
+					sb.append(" and startDate >='"+new java.sql.Date(date.getTime())+"'");
 				}else{
-					sb.append(" where  startDate >="+date+" ");
+					sb.append(" where  startDate >='"+new java.sql.Date(date.getTime())+"' ");
 					istrue=true;
 				}
 			}
 			if(!obj.getEndDate().isEmpty()){
 				Date date=viewUtil.getStringToDate(obj.getEndDate());
 				if(istrue){
-					sb.append(" and endDate <="+date+"");
+					sb.append(" and endDate <='"+new java.sql.Date(date.getTime())+"'");
 				}else{
-					sb.append(" where  endDate <="+date+" ");
+					sb.append(" where  endDate <='"+new java.sql.Date(date.getTime())+"' ");
 					istrue=true;
 				}
 			}
@@ -208,11 +237,11 @@ public class PromotionDaoImpl extends HibernateDao<Promotions, Integer> implemen
 
 	public PromotionBean updateReviewStatus(PromotionBean obj) {
 		try{
-			System.out.println("hjxfgshgdhdfhgfh"+"  "+obj.getReviewStatus()+"  "+obj.getPromotionId());
 			currentSession().createQuery("update  Promotions a set a.reviewStatus='"+obj.getReviewStatus()+"' where a.promotionId='"+obj.getPromotionId()+"'").executeUpdate();
 			obj.setResponseMsg(" Promotions has been reviewd succussully.");
 			obj.setResponseStatus("success");
 		}catch(Exception e){
+			e.printStackTrace();
 			obj.setErrorDesc("Error Occured while Saving new product in to Database");
 			obj.setResponseStatus("error");
 			obj.setResponseMsg("Server is not responding... please wait.... ");

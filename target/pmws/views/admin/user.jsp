@@ -5,7 +5,7 @@
 				<h3>Users</h3>
 				<div class="tools">
 					<div class="">
-					<a class=" btn-xs btn purple pull-right" data-toggle="tooltip"
+					<a class=" btn-xs btn purple pull-right" 
 						href="${pageContext.request.contextPath}/admin/users?action=add"><h5>Add new User<h4> <i
 						class="fa fa-plus-circle font-lg  fa-3x"></i>&nbsp;</a>
 					</div>

@@ -1,6 +1,7 @@
 package com.pmws.dao.impl;
 /**
  *@author guruprasanna n
+ *this class for perform login operation
  */
 import java.util.List;
 
@@ -10,10 +11,9 @@ import org.springframework.stereotype.Repository;
 import com.pmws.beans.LoginBean;
 import com.pmws.dao.HibernateDao;
 import com.pmws.dao.LoginDao;
-import com.pmws.entity.Users;
 
 @Repository("loginDao")
-public class LoginDaoImpl extends HibernateDao<Users, Integer> implements LoginDao<LoginBean>{
+public class LoginDaoImpl extends HibernateDao implements LoginDao<LoginBean>{
 
 	public LoginBean add(LoginBean obj) {
 		return null;
@@ -43,6 +43,7 @@ public class LoginDaoImpl extends HibernateDao<Users, Integer> implements LoginD
 			List<Object []> lobj= currentSession().createQuery(sb.toString()).list();
 			if(lobj!=null && lobj.size()>0){
 				bean.setUserId((Long)lobj.get(0)[0]);
+				bean.setUsername((String) lobj.get(0)[1]);
 				bean.setResponseStatus("success");
 			}else{
 				bean.setErrorCode("500");

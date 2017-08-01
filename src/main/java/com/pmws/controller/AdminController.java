@@ -1,6 +1,7 @@
 package com.pmws.controller;
 /**
  *@author guruprasanna n
+ *class for perform admin operation
  */
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -39,6 +40,12 @@ public class AdminController extends AppController{
         webDataBinder.setValidator(uservalidator);
     }*/
 
+	/**
+	 * This method perform curd operation for user page
+	 * @param :UserBean
+	 * @return : model & view 
+	 *
+	 */
 	@RequestMapping(value="/users",method=RequestMethod.GET)
 	public String getUsers(Model model,@ModelAttribute UserBean userbean){
 		String view="users";
@@ -54,7 +61,7 @@ public class AdminController extends AppController{
 			if(userbean.getResponseStatus()!=null && !userbean.getResponseStatus().equalsIgnoreCase("error")){
 				model.addAttribute("posted_user_data",userbean);
 				model.addAttribute("user_bean",userService.getAll(userbean));
-				view="user_listing";
+				view="users";
 			}else{
 				userbean.setResponseMsg("Access Denied.. This config entry was using by other resource. .");
 				model.addAttribute("user_bean",userbean);
@@ -67,6 +74,12 @@ public class AdminController extends AppController{
 		return view;
 	}
 
+	/**
+	 * This method perform curd operation for user page
+	 * @param :UserBean
+	 * @return : model & view 
+	 *
+	 */
 	@RequestMapping(value="/users-save",method=RequestMethod.POST)
 	public String saveUser(Model model,@ModelAttribute UserBean userBean,BindingResult bindingResult){
 		String view="users";
@@ -91,7 +104,7 @@ public class AdminController extends AppController{
 			if(userBean.getResponseStatus()!=null && !userBean.getResponseStatus().equalsIgnoreCase("error")){
 				model.addAttribute("posted_user_data",userBean);
 				model.addAttribute("user_bean",userService.getAll(userBean));
-				view="user_listing";
+				view="users";
 			}
 			else
 			{
@@ -114,7 +127,7 @@ public class AdminController extends AppController{
 			if(userBean.getResponseStatus()!=null && !userBean.getResponseStatus().equalsIgnoreCase("error")){
 				model.addAttribute("posted_user_data",userBean);
 				model.addAttribute("user_bean",userService.getAll(userBean));
-				view= "user_listing";
+				view= "users";
 			}
 			else
 			{
@@ -126,7 +139,12 @@ public class AdminController extends AppController{
 
 	}
 
-
+	/**
+	 * This method perform curd operation for product inventory  page
+	 * @param :ProductBean
+	 * @return : model & view 
+	 *
+	 */
 	@RequestMapping(value="/products",method=RequestMethod.GET)
 	public String getProducts(Model model,@ModelAttribute ProductBean productBean){
 		String view="products";
@@ -142,7 +160,7 @@ public class AdminController extends AppController{
 			if(productBean.getResponseStatus()!=null && !productBean.getResponseStatus().equalsIgnoreCase("error")){
 				model.addAttribute("posted_product_data",productBean);
 				model.addAttribute("product_bean",productService.getAll(productBean));
-				view="product_listing";
+				view="products";
 			}else{
 				productBean.setResponseMsg("Access Denied.. This config entry was using by other resource. .");
 				model.addAttribute("product_bean",productBean);
@@ -154,6 +172,13 @@ public class AdminController extends AppController{
 		}
 		return view;
 	}
+
+	/**
+	 * This method perform curd operation for product inventory  page
+	 * @param :ProductBean
+	 * @return : model & view 
+	 *
+	 */
 	@RequestMapping(value="/products-save",method=RequestMethod.POST)
 	public String saveProduct(Model model,@ModelAttribute ProductBean productBean){
 		String view="products";
@@ -172,7 +197,7 @@ public class AdminController extends AppController{
 			if(productBean.getResponseStatus()!=null && !productBean.getResponseStatus().equalsIgnoreCase("error")){
 				model.addAttribute("posted_product_data",productBean);
 				model.addAttribute("product_bean",productService.getAll(productBean));
-				view="product_listing";
+				view="products";
 			}
 			else
 			{
@@ -194,7 +219,7 @@ public class AdminController extends AppController{
 			if(productBean.getResponseStatus()!=null && !productBean.getResponseStatus().equalsIgnoreCase("error")){
 				model.addAttribute("posted_user_data",productBean);
 				model.addAttribute("product_bean",productService.getAll(productBean));
-				view= "product_listing";
+				view= "products";
 			}
 			else
 			{
@@ -205,6 +230,13 @@ public class AdminController extends AppController{
 		return view;
 	}
 
+
+	/**
+	 * This method perform curd operation for promotion  page
+	 * @param :PromotionBean
+	 * @return : model & view 
+	 *
+	 */
 	@RequestMapping(value="/promotions",method=RequestMethod.GET)
 	public String getPromotions(Model model,@ModelAttribute PromotionBean promotionBean){
 		String view="promotions";
@@ -220,7 +252,7 @@ public class AdminController extends AppController{
 			if(promotionBean.getResponseStatus()!=null && !promotionBean.getResponseStatus().equalsIgnoreCase("error")){
 				model.addAttribute("posted_promotion_data",promotionBean);
 				model.addAttribute("promotion_bean",promotionService.getAll(promotionBean));
-				view="promotion_listing";
+				view="promotions";
 			}else{
 				promotionBean.setResponseMsg("Access Denied.. This config entry was using by other resource. .");
 				model.addAttribute("promotion_bean",promotionBean);
@@ -232,12 +264,17 @@ public class AdminController extends AppController{
 		}
 		return view;
 	}
+
+	/**
+	 * This method perform curd operation for promotion  page
+	 * @param :PromotionBean
+	 * @return : model & view 
+	 *
+	 */
 	@RequestMapping(value="/promotions-save",method=RequestMethod.POST)
 	public String savePromotion(Model model,@ModelAttribute PromotionBean promotionBean){
 		String view="promotions";
-		System.out.println("popopopopopo"+"  "+promotionBean.getAction());
 		if(promotionBean.getAction().equals("update")){
-			System.out.println("lksogjdxkfjb"+"  "+promotionBean.getReviewStatus()+"  "+promotionBean.getPromotionId());
 			promotionBean=(PromotionBean) promotionService.updateReviewStatus(promotionBean);
 			if(promotionBean.getResponseStatus()!=null && !promotionBean.getResponseStatus().equalsIgnoreCase("error")){
 				model.addAttribute("posted_promotion_data",promotionBean);
@@ -292,7 +329,7 @@ public class AdminController extends AppController{
 			if(promotionBean.getResponseStatus()!=null && !promotionBean.getResponseStatus().equalsIgnoreCase("error")){
 				model.addAttribute("posted_promotion_data",promotionBean);
 				model.addAttribute("promotion_bean",promotionService.getAll(promotionBean));
-				view="promotion_listing";
+				view="promotions";
 			}
 			else
 			{
@@ -304,7 +341,7 @@ public class AdminController extends AppController{
 			if(promotionBean.getResponseStatus()!=null && !promotionBean.getResponseStatus().equalsIgnoreCase("error")){
 				model.addAttribute("posted_promotion_data",promotionBean);
 				model.addAttribute("promotion_bean",promotionService.getAll(promotionBean));
-				view= "promotion_listing";
+				view= "promotions";
 			}
 			else
 			{
@@ -316,7 +353,15 @@ public class AdminController extends AppController{
 		return view;
 	}
 
-	@RequestMapping(value="/search-promotion",method=RequestMethod.GET)
+
+
+	/**
+	 * This method perform curd operation for promotion  search
+	 * @param :PromotionBean
+	 * @return : model & view 
+	 *
+	 */
+	@RequestMapping(value="/search_promotion",method=RequestMethod.GET)
 	public String searchPromotions(Model model,@ModelAttribute PromotionBean promotionBean){
 		String view="search_promotions";
 		if(promotionBean.getAction().isEmpty()){
@@ -326,10 +371,15 @@ public class AdminController extends AppController{
 		return view;
 	}
 
+	/**
+	 * This method perform curd operation for promotion  search
+	 * @param :PromotionBean
+	 * @return : model & view 
+	 *
+	 */
 	@RequestMapping(value="/fetchsearch",method=RequestMethod.POST)
 	public String getSerachPromotions(Model model,@ModelAttribute PromotionBean promotionBean){
 		String view="search_promotions";
-		System.out.println("okokoko"+" "+promotionBean.getAction());
 		if(promotionBean.getAction().isEmpty()){
 			model.addAttribute("promotion_bean", promotionBean);
 			view="search_promotions";
@@ -340,9 +390,10 @@ public class AdminController extends AppController{
 				model.addAttribute("promotion_bean_result",promotionBean);
 				model.addAttribute("promotion_bean",new PromotionBean());
 				view="search_promotions";
-			}
+			}{
 			model.addAttribute("promotion_bean",promotionBean);
-			view="promotion_action";
+			view="search_promotions";
+			}
 		}
 
 		return view;

@@ -1,9 +1,7 @@
 <%@ include file="../l_includes/taglibs.jsp"%>
-<br>
-<div id="subpage_id">
-<h3>Search Promotion</h3>
 	 <div class="row">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+<h3>Search Promotion</h3>
 				<div class="portlet-body form">
 				 <c:choose>
 					<c:when test="${fn:length(promotion_bean.listOfErrorDesc) gt 0}">
@@ -28,7 +26,7 @@
 							</c:if>
 						</c:otherwise>
 					</c:choose>
-					<form:form id="promotion_form_id" modelAttribute="promotion_bean" method="POST"  action="${pageContext.request.contextPath}/admin/fetchsearch&action=search" >	
+					<form:form id="promotion_form_id" modelAttribute="promotion_bean" method="POST"  action="${pageContext.request.contextPath}/admin/fetchsearch?action=search" >	
 						
 						<div class="form-body">
 							<div class="row">
@@ -160,7 +158,3 @@
 			</div>
 		</div>
 	</div>
-</div> 
-<script type="text/javascript">
-	$('#promotion_form_id').validationEngine({promptPosition : "topRight",scroll : false,usePrefix : 's2id_'});
-</script>

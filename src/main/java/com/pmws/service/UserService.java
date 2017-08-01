@@ -3,9 +3,11 @@ package com.pmws.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-
 import com.pmws.dao.UserDao;
 
+/**
+ *@author guruprasanna n
+ */
 @Service("userService")
 public class UserService<UserBean> implements GenericService<UserBean>{
 	@Autowired
